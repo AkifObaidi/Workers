@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: white;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color:#4CAF50;
+  color: white;
+}
+#name:hover{
+	background-color:#ddd;	   
+
+}
+
+button{
+	display:inline-block;
+}
+</style>
+</head>
+<body>
+	<a href="/new"><button>New</button></a><form action="/edit" method="POST" style="display:inline;"><input id="input-edit" name="name" style="display:none;"/><button type="submit" id="btn-edit" displed="true">edit</button></form><form action="/del" method="POST" style="display:inline;">
+		<input style="display:none;" id="input-del" name="name"><button id="del" submit="submit">deleat</button></form><input placeholder="serach" id="input"/><button id="serach">serach</button>
+	<br>
+<p id="for" style="display:none;">{{forv}}</p>
+<table id="customers">
+  <tr>
+    <th>Name</th>
+    <th>Work</th>
+    <th>Country</th>
+  </tr>
+  {% for item in data %}
+  <tr>
+  	<td id="name">{{item[0]}}</td>
+	<td>{{item[1]}}</td>
+	<td>{{item[2]}}</td>
+  </tr>
+  {%endfor%}
+</table>
+ <script>
+                        document.querySelector("#btn-edit").addEventListener("click", e=>{
+                        let input = document.querySelector("#input-edit");
+                        let td = document.querySelectorAll("#name");
+				for (let x =0; x<td.length; x++){
+					if(td[x].style.backgroundColor=="aqua"){
+						input.value=td[x].innerText
+					}else{}
+				}
+                        })
+                </script>
+
+  <script>
+	  let li = document.querySelectorAll("#name");
+for(let i=0; i<li.length; i++){
+	li[i].addEventListener("click", e=>{
+		for(let b=0; b<li.length; b++){
+		let bb=document.querySelectorAll("#name");
+			bb[b].style.backgroundColor="white";
+		}
+	li[i].style.backgroundColor="aqua";
+	});
+	
+}
+	  
+  </script>
+
+</table>
+	<script>
+	
+	document.querySelector("#serach").addEventListener("click", e=>{
+	let input =document.querySelector("#input");
+	let li = document.querySelectorAll("#name");
+	let li2 =document.querySelectorAll("td");
+		for (x=0; x<li.length; x++){
+			if(input.value==li[x].innerText){
+				li[x].style.backgroundColor="aqua";
+			}else{			li[x].style.backgroundColor="white";
+			}
+		}
+
+	});
+document.querySelector("#del").addEventListener("click", e=>{
+	let result="false";
+        let td = document.querySelectorAll("#name");
+        let auqa='';
+	for (let x =0; x<td.length; x++){
+        	if(td[x].style.backgroundColor=="aqua"){
+              		result="true";
+			aqua=td[x].innerText;
+                }else{}
+        }
+if(result=="true"){
+	let res =prompt("do you want deleat this row if yes write y of no write n[y,n]?");
+	if(res=="y"){
+		document.querySelector("#input-del").value=aqua;
+	}else if(res=="n"){
+	}else{
+		alert("result not found");
+	}
+}else{
+	alert("select a row");
+}		
+});
+
+</script>
+
+</body>
+</html>
+
